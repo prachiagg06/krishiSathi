@@ -1,0 +1,23 @@
+.home_page{
+  display: flex;
+   height: 100vh; 
+  overflow: hidden; 
+}
+.main_content{
+  width: 100%;
+  background-color: #F7F0D2;
+   flex-grow: 1;
+  overflow-y: auto; 
+  padding: 20px;
+}
+.nav_bar {
+  width: 250px;
+  /* background-color: #343a40;  */
+  background-color: #5E7C59;
+  color: white;
+  flex-shrink: 0;
+}
+
+.div h1{
+  color: black;
+}
