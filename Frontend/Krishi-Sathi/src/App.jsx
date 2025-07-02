@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css'
 import Chatbot from "./pages/Chatbot"
@@ -11,12 +12,21 @@ import Contact from "./pages/Contact.jsx";
 import Home from "./pages/Home.jsx";
 
 function App() {
+  const [msg, setMsg] = useState("");
 
+  // const handleClick = async () => {
+  //   try {
+  //     const res = await axios.get("http://localhost:5000/api/test");
+  //     setResponse(res.data.message);
+  //   } catch (err) {
+  //     setResponse("Error calling API");
+  //     console.error(err);
+  //   }
+  // };
 
   return (
     <>
       <BrowserRouter>
-
         <div className="home_page">
           <div className="nav_bar">
             <div class="d-flex flex-column flex-shrink-0 p-3 text-white " style={{ width: "250px", height: "100vh" }}>
@@ -64,11 +74,10 @@ function App() {
               <Route path="/CropDisease" element={<CropDisease />} />
               <Route path="/Government" element={<Government />} />
               <Route path="/Contact" element={<Contact />} />
-              <Route path="/" element={<Home/>}/>
+              <Route path="/" element={<Home />} />
             </Routes>
           </div>
         </div>
-
       </BrowserRouter>
 
 

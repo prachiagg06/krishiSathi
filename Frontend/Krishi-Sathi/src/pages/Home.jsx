@@ -1,5 +1,20 @@
 import "../App.css";
+import { useState } from "react";
+import axios from "axios";
+
 function Home() {
+
+  const [response, setResponse] = useState("");
+
+   const handleClick = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/api/test");
+      setResponse(res.data.message);
+    } catch (err) {
+      setResponse("Error calling API");
+      console.error(err);
+    }
+  };
   return (
     <>
       <div className="div main_content">
@@ -17,6 +32,8 @@ function Home() {
           dignissimos laboriosam quisquam magnam debitis temporibus esse, et,
           accusantium qui sapiente quae voluptas vero totam reiciendis.
         </p>
+         <button onClick={handleClick}>Call API</button>
+         <p>{response}</p>
       </div>
     </>
   );
