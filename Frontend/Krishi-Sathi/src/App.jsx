@@ -12,18 +12,7 @@ import Contact from "./pages/Contact.jsx";
 import Home from "./pages/Home.jsx";
 
 function App() {
-  const [msg, setMsg] = useState("");
-
-  // const handleClick = async () => {
-  //   try {
-  //     const res = await axios.get("http://localhost:5000/api/test");
-  //     setResponse(res.data.message);
-  //   } catch (err) {
-  //     setResponse("Error calling API");
-  //     console.error(err);
-  //   }
-  // };
-
+  
   return (
     <>
       <BrowserRouter>
