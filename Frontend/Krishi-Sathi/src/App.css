@@ -1,24 +1,24 @@
-.home_page{
+.home_page {
   display: flex;
-   height: 100vh; 
-  overflow: hidden; 
+  height: 100vh;
+  overflow: hidden;
 }
-.main_content{
+.main_content {
   width: 100%;
-  background-color: #F7F0D2;
-   flex-grow: 1;
-  overflow-y: auto; 
+  background-color: #f7f0d2;
+  flex-grow: 1;
+  overflow-y: auto;
   padding: 20px;
 }
 .nav_bar {
   width: 250px;
   /* background-color: #343a40;  */
-  background-color: #5E7C59;
+  background-color: #5e7c59;
   color: white;
   flex-shrink: 0;
 }
 
-.div h1{
+.div h1 {
   color: black;
 }
 .upload-container {
@@ -67,4 +67,59 @@
 
 .detect-button:hover {
   background-color: #222;
+}
+.container-elements {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+.element {
+  border-radius: 5px;
+  background-color: #5e7c59;
+  height: 170px;
+  display: block;
+  /* align-items: center; */
+  text-align: center;
+  padding: 5px 10px;
+}
+.element img {
+  width: 59%;
+}
+.element h3 {
+  font-size: 16px;
+}
+.element h4 {
+  color: black;
+  font-size: 16px;
+}
+.Our-services {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.service {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.service img {
+  max-width: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.service .text h3 {
+  font-size: 16px;
+  margin: 0;
+}
+.service h4 {
+  color: black;
+  font-size: 16px;
+  margin: 0;
+}
+.card {
+  background: transparent !important;
+  border: none !important;
 }
