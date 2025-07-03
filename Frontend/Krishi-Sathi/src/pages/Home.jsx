@@ -26,14 +26,14 @@ function Home() {
             <h4>Crop Sugesstion</h4>
           </div>
           <div className="element">
-            <img src="https://cdn-icons-png.flaticon.com/128/88/88506.png"></img>
-            <h3>Ai- Based</h3>
-            <h4>Crop Sugesstion</h4>
+            <img src="https://cdn-icons-png.flaticon.com/128/2957/2957990.png"></img>
+            <h3>desesase</h3>
+            <h4>detection</h4>
           </div>
           <div className="element">
-            <img src="https://cdn-icons-png.flaticon.com/128/88/88506.png"></img>
-            <h3>Ai- Based</h3>
-            <h4>Crop Sugesstion</h4>
+            <img src="https://cdn-icons-png.flaticon.com/128/3721/3721843.png"></img>
+            <h3>Regional language </h3>
+            <h4>Chat bot</h4>
           </div>
           <div className="element">
             <img src="https://cdn-icons-png.flaticon.com/128/88/88506.png"></img>
