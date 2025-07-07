@@ -76,17 +76,23 @@
 }
 .element {
   border-radius: 5px;
-  background-color: #fbe8c7;
-  background-color: rgb(243, 215, 169);
+
   background-color: rgba(243, 215, 169, 0.5);
+  background-color: #5e7c59;
+  opacity: 0.7;
+
   height: 170px;
   display: block;
   /* align-items: center; */
   text-align: center;
   padding: 5px 10px;
 }
+.e2 {
+  background-color: rgba(202, 243, 169, 0.5);
+}
 .element img {
   width: 59%;
+  color: #5e7c59;
 }
 .element h3 {
   font-size: 16px;
