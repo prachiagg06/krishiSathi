@@ -5,7 +5,6 @@ const cors = require('cors');
 const multer = require("multer");
 const app = express();
 const PORT = 5000;
-// import diseaseRoutes from "./routes/diseaseRoute"
 
 app.use(cors());
 app.use(express.json());
@@ -17,6 +16,15 @@ app.get("/api/test", (req, res) => {
 
 const diseaseRoutes = require("./routes/diseaseRoutes");
 app.use("/api", diseaseRoutes);
+
+const cropRoutes = require("./routes/cropRoutes"); 
+app.use("/api", cropRoutes); 
+
+const marketplaceRoutes = require("./routes/marketplaceRoutes");
+app.use("/api/marketplace", marketplaceRoutes);
+
+// const marketplaceRoutes = require("./routes/marketplaceRoutes");
+// app.use("/api/marketplace", marketplaceRoutes);
 
 app.listen(PORT, () => {
   console.log(` Server running on port ${PORT}`);

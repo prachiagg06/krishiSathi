@@ -10,8 +10,19 @@ import PricePridiction from "./pages/PricePridiction"
 import CropDisease from './pages/CropDisease.jsx';
 import Contact from "./pages/Contact.jsx";
 import Home from "./pages/Home.jsx";
+import BuyerLogin from './pages/BuyerLogin.jsx';
+import AccessGuard from "./components/AccessGuard";
+import NotAuthorized from "./pages/NotAuthorized";
 
 function App() {
+
+//   useEffect(() => {
+//   const buyerFlag = localStorage.getItem("isBuyer");
+//   setIsBuyer(buyerFlag === "true"); 
+// }, []);
+const [isBuyer, setIsBuyer] = useState(() => {
+  return localStorage.getItem("isBuyer") === "true";
+});
   
   return (
     <>
@@ -49,6 +60,19 @@ function App() {
               </ul>
               <hr />
               <div>
+                <button
+  onClick={() => {
+    localStorage.removeItem("isBuyer");
+    setIsBuyer(false);
+  }}
+  className="nav-link text-white"
+  style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+>
+  Logout
+</button>
+
+              </div>
+              <div>
                 <a href="/Contact" class="nav-link text-white">Contact Us</a>
               </div>
             </div>
@@ -57,13 +81,23 @@ function App() {
             <Routes>
               {/* function name here */}
               <Route path="/marketplace" element={<MarketPlace />} />
-              <Route path="/PricePridiction" element={<PricePridiction />} />
-              <Route path="/Chatbot" element={<Chatbot />} />
-              <Route path="/CropPrediction" element={<CropPrediction />} />
-              <Route path="/CropDisease" element={<CropDisease />} />
+              <Route path="/PricePridiction"element={
+  <AccessGuard><PricePridiction /></AccessGuard>
+} />
+              <Route path="/Chatbot" element={
+  <AccessGuard><Chatbot /></AccessGuard>
+} />
+              <Route path="/CropPrediction" element={
+  <AccessGuard><CropPrediction /></AccessGuard>
+} />
+              <Route path="/CropDisease" element={
+  <AccessGuard><CropDisease /></AccessGuard>
+} />
               <Route path="/Government" element={<Government />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/" element={<Home />} />
+              <Route path="/buyer" element={<BuyerLogin/>}></Route>
+              <Route path="/not-authorized" element={<NotAuthorized />} />
             </Routes>
           </div>
         </div>

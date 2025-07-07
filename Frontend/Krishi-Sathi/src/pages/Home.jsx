@@ -34,6 +34,19 @@ function Home() {
         </p>
          <button onClick={handleClick}>Call API</button>
          <p>{response}</p>
+
+
+         <div className="buyer-cta">
+  <h2>💬 “Want to buy fresh produce directly from farmers?”</h2>
+  <h2>💬 “Looking for verified farmer listings in your area?”</h2>
+  <h2>💬 “Apply for government subsidy programs for bulk purchase!”</h2>
+  <p>Login as a buyer to access marketplace and government schemes.</p>
+  <button onClick={() => window.location.href = "/buyer"}>Go to Buyer Login</button>
+
+
+
+</div>
+
       </div>
     </>
   );
