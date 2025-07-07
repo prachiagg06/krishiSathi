@@ -1,12 +1,12 @@
-import "../App.css";
 import { useState } from "react";
 import axios from "axios";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "../App.css";
 
 function Home() {
-
   const [response, setResponse] = useState("");
 
-   const handleClick = async () => {
+  const handleClick = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/test");
       setResponse(res.data.message);
