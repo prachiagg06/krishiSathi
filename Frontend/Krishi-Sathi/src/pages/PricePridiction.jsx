@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "../App.css";
@@ -8,13 +9,47 @@ const indianStates = [
   "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
   "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
   "Uttarakhand", "West Bengal",
+=======
+import React, { useState } from "react";
+import "../App.css"; // or "./PricePrediction.css" if using separate CSS
+
+const indianStates = [
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chhattisgarh",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
+>>>>>>> 370878ca1b764b20437e0288b91b396de284a3f0
 ];
 
 function PricePrediction() {
   const [crop, setCrop] = useState("");
   const [state, setState] = useState("");
-  const [entries, setEntries] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [predictedPrice, setPredictedPrice] = useState(null);
+  const [predictionDate, setPredictionDate] = useState("");
 
   const handlePredict = async () => {
     if (!crop || !state) {
@@ -23,86 +58,38 @@ function PricePrediction() {
     }
 
     try {
-      const fakePrice = Math.floor(Math.random() * 2000 + 2000); // Dummy AI price
-      setLoading(true);
+      // Placeholder for AI model API call
+      // const response = await axios.post("http://localhost:5000/api/predict-price", { crop, state });
+      // const { price } = response.data;
 
-     const response = await axios.post("http://localhost:5000/api/crops/add-price", {
-        cropName: crop,
-        price: fakePrice,
-        state: state,
+      const fakePrice = 2750; // Placeholder for now
+      setPredictedPrice(fakePrice);
+      const today = new Date();
+      const formatted = today.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
       });
-      console.log("✅ POST Success:", response.data);
-      window.location.reload();  // ✅ This will reload the component and table
-
-      // Clear form inputs
-      setCrop("");
-      setState("");
-
-      // Fetch updated list from DB
-      await fetchEntries();
-
+      setPredictionDate(formatted);
     } catch (err) {
-      console.error("❌ Error saving prediction:", err);
+      console.error("Error fetching prediction:", err);
       alert("Prediction failed.");
-    } finally {
-      setLoading(false);
     }
   };
-
-  const fetchEntries = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/crops/all-prices", {
-      headers: {
-    "Cache-Control": "no-cache",},
-});
-      const formatted = res.data.map((entry) => ({
-        crop: entry.crop_name,
-        price: entry.price,
-        state: entry.state,
-        date: new Date(entry.created_at).toLocaleDateString("en-IN", {
-          day: "numeric",
-          month: "short",
-          year: "numeric",
-        }),
-      }));
-      setEntries(formatted);
-    } catch (err) {
-      console.error("❌ Failed to fetch entries:", err);
-    }
-  };
-
-  useEffect(() => {
-    fetchEntries();
-  }, []);
 
   return (
-    <div className="price-prediction-page" style={{ padding: "20px" }}>
+    <div className="price-prediction-page">
       <h1>🌾 Price Prediction</h1>
 
-      <div className="prediction-form" style={{ marginBottom: "20px" }}>
+      <div className="prediction-form">
         <input
           type="text"
           placeholder="Enter crop name (e.g., Wheat)"
           value={crop}
           onChange={(e) => setCrop(e.target.value)}
-          style={{
-            padding: "10px",
-            marginRight: "10px",
-            borderRadius: "8px",
-            border: "1px solid black",
-          }}
         />
 
-        <select
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          style={{
-            padding: "10px",
-            marginRight: "10px",
-            borderRadius: "8px",
-            border: "1px solid black",
-          }}
-        >
+        <select value={state} onChange={(e) => setState(e.target.value)}>
           <option value="">Select state</option>
           {indianStates.map((s, idx) => (
             <option key={idx} value={s}>
@@ -111,54 +98,21 @@ function PricePrediction() {
           ))}
         </select>
 
-        <button
-          onClick={handlePredict}
-          disabled={loading}
-          style={{
-            padding: "10px 20px",
-            backgroundColor: "#4169e1",
-            color: "#fff",
-            border: "none",
-            borderRadius: "8px",
-            cursor: "pointer",
-          }}
-        >
-          {loading ? "Predicting..." : "Predict Price"}
-        </button>
+        <button onClick={handlePredict}>Predict Price</button>
       </div>
 
-      {/* 🔵 Show entries in a table */}
-      {entries.length > 0 && (
-        <div className="entries-table" style={{ marginTop: "30px" }}>
-          <h2>📈 Price Prediction History</h2>
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              border: "1px solid #ccc",
-            }}
+      {predictedPrice && (
+        <div className="prediction-result">
+          📊 The estimated price of <strong>{crop}</strong> in{" "}
+          <strong>{state}</strong> is:
+          <div
+            style={{ fontSize: "24px", fontWeight: "bold", marginTop: "6px" }}
           >
-            <thead style={{ backgroundColor: "#f2f2f2" }}>
-              <tr>
-                <th>#</th>
-                <th>Crop</th>
-                <th>Price (₹/Quintal)</th>
-                <th>State</th>
-                <th>Date</th>
-              </tr>
-            </thead>
-            <tbody>
-              {entries.map((entry, index) => (
-                <tr key={index}>
-                  <td style={{ textAlign: "center" }}>{index + 1}</td>
-                  <td>{entry.crop}</td>
-                  <td>₹ {entry.price}</td>
-                  <td>{entry.state}</td>
-                  <td>{entry.date}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            ₹ {predictedPrice} / quintal
+          </div>
+          <div style={{ fontSize: "14px", marginTop: "4px", color: "#718096" }}>
+            (Predicted on: {predictionDate})
+          </div>
         </div>
       )}
     </div>
