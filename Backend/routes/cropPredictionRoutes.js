@@ -14,7 +14,7 @@ router.post("/crop-prediction", upload.single("image"), (req, res) => {
     // Here you'd pass the imageBuffer to your ML model
     // For now, we’ll return a fake prediction
     // e.g., const result = await detectDiseaseFromImage(imageBuffer);
-    const result = "Leafy vegetables";  // Dummy result
+    const result = "aloo ugla le ";  // Dummy result
 
     res.json({ result });
   } catch (err) {

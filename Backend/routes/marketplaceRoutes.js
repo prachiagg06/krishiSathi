@@ -1,25 +1,24 @@
-// const express = require("express");
-// const router = express.Router();
-// const db = require("../db/connection"); 
+const express = require("express");
+const router = express.Router();
+const db = require("../db/connection"); 
 
-// router.post("/add-product", (req, res) => {
-//   const { product, price, state } = req.body;
-
-//   if (!product || !price || !state) {
-//     return res.status(400).json({ message: "All fields are required." });
-//   }
-
-//   const query = "INSERT INTO marketplace (product, price, state) VALUES (?, ?, ?)";
-//   db.query(query, [product, price, state], (err, result) => {
-//     if (err) {
-//       console.error("DB Insert Error:", err);
-//       return res.status(500).json({ message: "Database insert failed." });
-//     }
-//     res.status(201).json({ message: "Product added successfully!" });
-//   });
-// });
-
-// router.get("/marketplace/all-products", async (req, res) => {
+// POST route 
+router.post("/add-products", async (req, res) => {
+  const { product, price, state } = req.body;
+  if (!product || !price || !state) {
+    return res.status(400).json({ message: "All fields are required." });
+  }
+  const query = "INSERT INTO marketplace (product, price, state) VALUES (?, ?, ?)";
+  try {
+    await db.query(query, [product, price, state]);
+    res.status(201).json({ message: "Product added successfully!" });
+  } catch (err) {
+    console.error("DB Insert Error:", err);
+    res.status(500).json({ message: "Database insert failed." });
+  }
+});
+// GET route 
+// router.get("/all-products", async (req, res) => {
 //   try {
 //     const [rows] = await db.query("SELECT * FROM marketplace");
 //     res.json(rows);
@@ -28,39 +27,43 @@
 //     res.status(500).json({ error: "Failed to fetch products" });
 //   }
 // });
+// GET /all-products?state=Delhi
+// router.get("/all-products", async (req, res) => {
+//   const { state } = req.query;
+//   let query = "SELECT * FROM marketplace";
+//   let params = [];
 
-// module.exports = router;
-const express = require("express");
-const router = express.Router();
-const db = require("../db/connection"); // You should have a MySQL connection setup
+//   if (state && state !== "Select state") {
+//     query += " WHERE state = ?";
+//     params.push(state);
+//   }
 
-// POST route to add product
-router.post("/add-product", (req, res) => {
-  const { product, price, state } = req.body;
+//   try {
+//     const [rows] = await db.query(query, params);
+//     res.json(rows);
+//   } catch (err) {
+//     console.error("Error fetching products:", err);
+//     res.status(500).json({ error: "Failed to fetch products" });
+//   }
+// });
+router.get("/all-products", async (req, res) => {
+  const { state } = req.query;
+  let query = "SELECT * FROM marketplace";
+  let params = [];
 
-  if (!product || !price || !state) {
-    return res.status(400).json({ message: "All fields are required." });
+  if (state && state !== "Select state") {
+    query += " WHERE state = ?";
+    params.push(state);
   }
 
-  const query = "INSERT INTO marketplace (product, price, state) VALUES (?, ?, ?)";
-  db.query(query, [product, price, state], (err, result) => {
-    if (err) {
-      console.error("DB Insert Error:", err);
-      return res.status(500).json({ message: "Database insert failed." });
-    }
-    res.status(201).json({ message: "Product added successfully!" });
-  });
-});
-
-// GET route to fetch all products - FIXED: removed extra "/marketplace"
-router.get("/all-products", async (req, res) => {
   try {
-    const [rows] = await db.query("SELECT * FROM marketplace");
+    const [rows] = await db.query(query, params);
     res.json(rows);
   } catch (err) {
     console.error("Error fetching products:", err);
     res.status(500).json({ error: "Failed to fetch products" });
   }
 });
+
 
 module.exports = router;

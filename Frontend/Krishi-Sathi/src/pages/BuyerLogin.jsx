@@ -9,7 +9,7 @@ function BuyerLogin(){
   const handleSubmit = () => {
      if (username === "buyer123@gmail.com" && password === "123") {
       localStorage.setItem("isBuyer", "true");
-      navigate("/Home");
+      navigate("/");
     } else {
       alert("Invalid credentials");
     }

@@ -4,10 +4,12 @@ require("dotenv").config();
 const cors = require('cors');
 const multer = require("multer");
 const app = express();
+const bodyParser = require("body-parser")
 const PORT = 5000;
 
-app.use(cors());
+
 app.use(express.json());
+app.use(cors());
 
 
 app.get("/api/test", (req, res) => {
@@ -15,16 +17,16 @@ app.get("/api/test", (req, res) => {
 });
 
 const diseaseRoutes = require("./routes/diseaseRoutes");
-app.use("/api", diseaseRoutes);
-
-const cropRoutes = require("./routes/cropRoutes"); 
-app.use("/api", cropRoutes); 
-
+const cropRoutes = require("./routes/cropPredictionRoutes");
 const marketplaceRoutes = require("./routes/marketplaceRoutes");
-app.use("/api/marketplace", marketplaceRoutes);
+const pricePredictionRoutes = require("./routes/pricePrediction");
+const paymentRoute = require("./routes/paymentRoute")
 
-// const marketplaceRoutes = require("./routes/marketplaceRoutes");
-// app.use("/api/marketplace", marketplaceRoutes);
+app.use("/api", diseaseRoutes);
+app.use("/api", cropRoutes);
+app.use("/api/marketplace", marketplaceRoutes);
+app.use("/api/crops", pricePredictionRoutes); 
+app.use("/api/payment", paymentRoute)
 
 app.listen(PORT, () => {
   console.log(` Server running on port ${PORT}`);
