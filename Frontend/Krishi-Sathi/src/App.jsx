@@ -61,15 +61,15 @@ function App() {
               <hr />
               <div>
                 <button
-  onClick={() => {
-    localStorage.removeItem("isBuyer");
-    setIsBuyer(false);
-  }}
-  className="nav-link text-white"
-  style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
->
-  Logout
-</button>
+                  onClick={() => {
+                    localStorage.removeItem("isBuyer");
+                    setIsBuyer(false);
+                  }}
+                  className="nav-link text-white"
+                  style={{ background: "none", border: "none", cursor: "pointer", textAlign: "left" }}
+                >
+                  Logout
+                </button>
 
               </div>
               <div>
@@ -83,22 +83,22 @@ function App() {
             <Routes>
               {/* function name here */}
               <Route path="/marketplace" element={<MarketPlace />} />
-              <Route path="/PricePridiction"element={
-  <AccessGuard><PricePridiction /></AccessGuard>
-} />
+              <Route path="/PricePridiction" element={
+                <AccessGuard><PricePridiction /></AccessGuard>
+              } />
               <Route path="/Chatbot" element={
-  <AccessGuard><Chatbot /></AccessGuard>
-} />
+                <AccessGuard><Chatbot /></AccessGuard>
+              } />
               <Route path="/CropPrediction" element={
-  <AccessGuard><CropPrediction /></AccessGuard>
-} />
+                <AccessGuard><CropPrediction /></AccessGuard>
+              } />
               <Route path="/CropDisease" element={
-  <AccessGuard><CropDisease /></AccessGuard>
-} />
+                <AccessGuard><CropDisease /></AccessGuard>
+              } />
               <Route path="/Government" element={<Government />} />
               <Route path="/Contact" element={<Contact />} />
               <Route path="/" element={<Home />} />
-              <Route path="/buyer" element={<BuyerLogin/>}></Route>
+              <Route path="/buyer" element={<BuyerLogin />}></Route>
               <Route path="/not-authorized" element={<NotAuthorized />} />
             </Routes>
           </div>

@@ -16,8 +16,7 @@
   background-color: #5e7c59;
   color: white;
   flex-shrink: 0;
-}
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+}          
 .div h1 {
   color: black;
 }
@@ -192,11 +191,6 @@
   border: none !important;
 }
 
-<<<<<<< HEAD
-
-
-=======
->>>>>>> 370878ca1b764b20437e0288b91b396de284a3f0
 /* Price Prediction Page Styles */
 .price-prediction-page {
   max-width: 700px;
@@ -256,8 +250,6 @@
   font-size: 18px;
   color: #22543d;
 }
-<<<<<<< HEAD
-=======
 
 
 /* Style for the heading section */
@@ -316,4 +308,3 @@
 
 
 
->>>>>>> 370878ca1b764b20437e0288b91b396de284a3f0

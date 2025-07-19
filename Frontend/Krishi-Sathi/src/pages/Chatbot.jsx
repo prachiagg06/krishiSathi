@@ -42,11 +42,11 @@ function chatbot() {
           {/* chatbot footer  */}
           <div className="chat-footer">
             <form action="#" className="chat-form">
-              <textarea placeholder="Message..." className="message-input"></textarea>
+              <textarea placeholder="Message..." className="message-input" required></textarea>
               <div className="chat-controls">
                 <button type="button" class="material-symbols-rounded">sentiment_satisfied</button>
                 <button type="button" class="material-symbols-rounded">attach_file</button>
-                <button type="submit" class="material-symbols-rounded">arrow_upward</button>
+                <button type="submit" id="send-message" class="material-symbols-rounded">arrow_upward</button>
               </div>
             </form>
           </div>

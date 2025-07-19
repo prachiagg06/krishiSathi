@@ -1,7 +1,6 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Payment from "../components/Payment";
 
 const states = [
   "Select state",
@@ -155,7 +154,6 @@ function MarketPlace() {
           ))}
         </tbody>
       </table>
-      <Payment></Payment>
     </div>
   );
 }
