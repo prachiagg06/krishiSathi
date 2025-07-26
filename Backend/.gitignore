@@ -9,3 +9,4 @@ backend/dist/
 
 
 *.env
+tf310-env/
