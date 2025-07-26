@@ -3,11 +3,42 @@ import axios from "axios";
 import "../App.css";
 
 const indianStates = [
-  "Andaman and Nicobar Islands", "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", "Chandigarh", "Chhattisgarh",
-  "Dadra and Nagar Haveli and Daman and Diu", "Delhi(NCR)", "Goa", "Gujarat", "Haryana", "Himachal Pradesh", "Jammu and Kashmir",
-  "Jharkhand", "Karnataka", "Kerala", "Ladakh", "Lakshadweep", "Madhya Pradesh", "Maharashtra", "Manipur", "Meghalaya", "Mizoram",
-  "Nagaland", "Odisha", "Puducherry", "Punjab", "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura", "Uttar Pradesh",
-  "Uttarakhand", "West Bengal",
+  "Andaman and Nicobar Islands",
+  "Andhra Pradesh",
+  "Arunachal Pradesh",
+  "Assam",
+  "Bihar",
+  "Chandigarh",
+  "Chhattisgarh",
+  "Dadra and Nagar Haveli and Daman and Diu",
+  "Delhi(NCR)",
+  "Goa",
+  "Gujarat",
+  "Haryana",
+  "Himachal Pradesh",
+  "Jammu and Kashmir",
+  "Jharkhand",
+  "Karnataka",
+  "Kerala",
+  "Ladakh",
+  "Lakshadweep",
+  "Madhya Pradesh",
+  "Maharashtra",
+  "Manipur",
+  "Meghalaya",
+  "Mizoram",
+  "Nagaland",
+  "Odisha",
+  "Puducherry",
+  "Punjab",
+  "Rajasthan",
+  "Sikkim",
+  "Tamil Nadu",
+  "Telangana",
+  "Tripura",
+  "Uttar Pradesh",
+  "Uttarakhand",
+  "West Bengal",
 ];
 
 function PricePrediction() {
@@ -25,16 +56,19 @@ function PricePrediction() {
     }
 
     try {
-      const fakePrice = Math.floor(Math.random() * 2000 + 2000); // Dummy AI price
+     const fakePrice = Math.floor(Math.random() * 300 + 2800);
       setLoading(true);
 
-     const response = await axios.post("http://localhost:5000/api/crops/add-price", {
-        cropName: crop,
-        price: fakePrice,
-        state: state,
-      });
+      const response = await axios.post(
+        "http://localhost:5000/api/crops/add-price",
+        {
+          cropName: crop,
+          price: fakePrice,
+          state: state,
+        }
+      );
       console.log("✅ POST Success:", response.data);
-      window.location.reload();  // ✅ This will reload the component and table
+      window.location.reload(); // ✅ This will reload the component and table
 
       // Clear form inputs
       setCrop("");
@@ -42,7 +76,6 @@ function PricePrediction() {
 
       // Fetch updated list from DB
       await fetchEntries();
-
     } catch (err) {
       console.error("❌ Error saving prediction:", err);
       alert("Prediction failed.");
@@ -53,10 +86,14 @@ function PricePrediction() {
 
   const fetchEntries = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/crops/all-prices", {
-      headers: {
-    "Cache-Control": "no-cache",},
-});
+      const res = await axios.get(
+        "http://localhost:5000/api/crops/all-prices",
+        {
+          headers: {
+            "Cache-Control": "no-cache",
+          },
+        }
+      );
       const formatted = res.data.map((entry) => ({
         crop: entry.crop_name,
         price: entry.price,
@@ -83,6 +120,7 @@ function PricePrediction() {
 
       <div className="prediction-form" style={{ marginBottom: "20px" }}>
         <input
+          className="crop-input"
           type="text"
           placeholder="Enter crop name (e.g., Wheat)"
           value={crop}
@@ -119,6 +157,7 @@ function PricePrediction() {
         <div className="entries-table" style={{ marginTop: "30px" }}>
           <h2>📈 Price Prediction History</h2>
           <table
+            className="table table-striped"
             style={{
               width: "100%",
               borderCollapse: "collapse",

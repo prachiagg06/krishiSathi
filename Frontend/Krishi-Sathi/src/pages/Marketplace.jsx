@@ -1,6 +1,8 @@
 import "../App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const states = [
   "Select state",
@@ -45,33 +47,31 @@ function MarketPlace() {
   const [price, setPrice] = useState("");
   const [state, setState] = useState(states[0]);
   const [entries, setEntries] = useState([]);
-  const [filterState, setFilterState] = useState(states[0]); // For filtering
+  const [filterState, setFilterState] = useState(states[0]);
+  const [isBuyer, setIsBuyer] = useState(
+    localStorage.getItem("isBuyer") === "true"
+  );
 
-  // Fetch products (filtered by state if selected)
- const fetchEntries = async (selectedState = states[0]) => {
-  try {
-    let url = "http://localhost:5000/api/marketplace/all-products";
-    if (selectedState && selectedState !== "Select state") {
-      url += `?state=${encodeURIComponent(selectedState)}`;
+  const fetchEntries = async (selectedState = states[0]) => {
+    try {
+      let url = "http://localhost:5000/api/marketplace/all-products";
+      if (selectedState && selectedState !== "Select state") {
+        url += `?state=${encodeURIComponent(selectedState)}`;
+      }
+      const res = await axios.get(url);
+      setEntries(Array.isArray(res.data) ? res.data : []);
+    } catch (err) {
+      toast.error("❌ Failed to fetch products.");
     }
-    console.log("Fetching:", url); // <-- add this
-    const res = await axios.get(url);
-    setEntries(res.data);
-  } catch (err) {
-    console.error("Failed to fetch products:", err);
-  }
-};
+  };
 
-
-  // Fetch all or filtered entries on mount and when filterState changes
   useEffect(() => {
     fetchEntries(filterState);
   }, [filterState]);
 
-  // Add product handler
   const handleAdd = async () => {
     if (!product || !price || state === "Select state") {
-      alert("⚠️ Please fill all fields!");
+      toast.warn("⚠ Please fill all fields!");
       return;
     }
 
@@ -82,21 +82,22 @@ function MarketPlace() {
         state,
       });
 
-      alert("✅ Product added successfully!");
-      // Refresh the list (respecting current filter)
+      toast.success("✅ Product added successfully!");
       fetchEntries(filterState);
-
       setProduct("");
       setPrice("");
       setState(states[0]);
     } catch (err) {
-      console.error("❌ Error while adding product:", err);
-      alert("Failed to add product. Please try again.");
+      toast.error("❌ Failed to add product.");
     }
   };
 
+  const handleBuy = (entry) => {
+    toast.success(`🛒 Buying ${entry.product} from ${entry.state}`);
+  };
+
   return (
-    <div className="main_content marketplace">
+    <div className="main_content1 marketplace">
       <h2>🧺 Farmer Product Listing</h2>
 
       <div className="form-container">
@@ -114,13 +115,36 @@ function MarketPlace() {
         />
         <select value={state} onChange={(e) => setState(e.target.value)}>
           {states.map((s, idx) => (
-            <option key={idx} value={s}>{s}</option>
+            <option key={idx} value={s}>
+              {s}
+            </option>
           ))}
         </select>
         <button onClick={handleAdd}>List Product</button>
+
+        {/* Buyer Login / Logout buttons BELOW the form */}
+        {!isBuyer && (
+          <button
+            onClick={() => (window.location.href = "/buyer")}
+            className="buyer-login-btn"
+          >
+            Go to Buyer Login
+          </button>
+        )}
+        {isBuyer && (
+          <button
+            onClick={() => {
+              localStorage.removeItem("isBuyer");
+              setIsBuyer(false);
+              toast.info("👋 Logged out successfully.");
+            }}
+            className="logout-btn"
+          >
+            Logout
+          </button>
+        )}
       </div>
 
-      {/* Buyer Filter */}
       <div className="filter-container" style={{ margin: "1em 0" }}>
         <label htmlFor="state-filter">Filter by State: </label>
         <select
@@ -129,7 +153,9 @@ function MarketPlace() {
           onChange={(e) => setFilterState(e.target.value)}
         >
           {states.map((s, idx) => (
-            <option key={idx} value={s}>{s}</option>
+            <option key={idx} value={s}>
+              {s}
+            </option>
           ))}
         </select>
       </div>
@@ -149,11 +175,20 @@ function MarketPlace() {
               <td>{index + 1}</td>
               <td>{entry.product}</td>
               <td>{entry.price}</td>
-              <td>{entry.state}</td>
+              <td className="state-cell">
+                {entry.state}
+                {isBuyer && (
+                  <button className="buy-btn" onClick={() => handleBuy(entry)}>
+                    Buy
+                  </button>
+                )}
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <ToastContainer position="top-right" autoClose={3000} />
     </div>
   );
 }
