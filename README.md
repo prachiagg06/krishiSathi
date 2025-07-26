@@ -1,145 +1,113 @@
 🌾 Krishi Sathi – Empowering Farmers with AI & Technology
-Krishi Sathi is an AI-powered AgriTech web application built to support and uplift Indian farmers. It provides an intuitive digital platform where farmers can list their produce, check dynamic market prices, and access relevant government subsidies—all while leveraging AI-powered insights for smarter agriculture.
 
-🚀 Live Demo: (Insert deployed URL if hosted)
+🎯 About
+Krishi Sathi bridges the gap between traditional farming and modern technology, providing Indian farmers with AI-powered tools for smarter agricultural decisions.
+Live Demo:- (https://www.youtube.com/watch?v=9OSl-3ICMC0)
+Key Benefits:
+🤖 AI-Powered Insights - Price prediction and crop recommendations
+🛒 Easy Market Access - Direct marketplace for produce listing
+🌱 Smart Agriculture - Disease detection and soil analysis
+🏛️ Government Integration - Access to subsidies (upcoming)
 
-📸 Preview:
-(Screenshots or demo GIFs here)
-
-🧠 Features
-🔹 AI Integration
-
-Crop price prediction using AI and market trends
-
-Chatbot assistant to help users navigate features
-Crop prediction based on soil iamge 
-Predict crop desease based on the image uploaded
-
+✨ Features
+🔹 AI Solutions
+🧠 Price Prediction - Market forecasting using ML algorithms
+🤖 Smart Chatbot - Agricultural guidance and support
+🌱 Crop Recommendation - Soil-based crop suggestions
+🦠 Disease Detection - Image-based crop disease identification (50+ diseases)
 🛒 Marketplace
-
-Farmers can list their products (name, price, and state)
-
-Products are stored in a SQL database
-
-Listing updated in real time (stored in local storage)
-
-📊 Dynamic Product Table
-
-Sl. No.
-
-Product Name
-
-Price (₹)
-
-State
-
-Automatically updated upon listing
-
-🏛 Government Subsidy Page (Planned/Future Scope)
-
-Subsidy schemes listed by state and crop type
-
-Eligibility filter based on user input
-
-Downloadable PDFs and scheme links
-
-🔐 Authentication (Optional/Future Scope)
-
-Role-based login (Farmer, Officer/Admin)
-
-Session management and user-specific listings
+Product listing with real-time updates
+State-wise pricing information
+Dynamic product tables with search/filter
+Responsive design for all devices
+📊 Dashboard
+Interactive data visualization
+Price trend analysis
+Regional market insights
+User-friendly interface
 
 🛠️ Tech Stack
-Frontend: React.js, HTML, CSS (Bootstrap), Axios
+Frontend: React.js, HTML5, CSS3, Bootstrap, Axios,javascript
+ Backend: Node.js, Express.js, Python
+ Database: MySQL, XAMPP
+ AI/ML: Machine Learning Models, TenserFlow, NLP
 
-Backend: Node.js, Express.js
+🚀 Quick Start
+Prerequisites
+Node.js (v16+), Python (v3.8+), MySQL, Git
+Installation
+Clone & Setup
 
-Database: MySQL (XAMPP / phpMyAdmin)
-
-AI Integration: (Specify your AI logic—e.g., Python model or third-party API)
-
-
-
-💻 Local Setup Instructions
-Clone the repo:
-
-git clone https://github.com/your-username/krishi-sathi.git
+ git clone https://github.com/your-username/krishi-sathi.git
 cd krishi-sathi
 
-Set up the backend:
+Run Application
 
-Navigate to /server
+ # Terminal 1: Backend
+-cd backend
+-npm install
+-node server.js
 
-Run:
-npm install
-node server.js
-python server.py
+# Terminal 2: Python Server
 
-(Ensure MySQL is running through XAMPP)
+-cd backend 
+-pip install requirement.txt
+-python server.py
 
-Set up the frontend:
+# Terminal 3: Frontend
+-cd Frontend/Krishi-Sathi 
+- npm run dev
 
-cd Frontend/Krishi-Sathi
-npm install
-npm run dev
+Environment Config
 
-Update .env (if applicable):
-
+ # backend/.env
 DB_HOST=localhost
 DB_USER=root
 DB_PASSWORD=
 DB_NAME=Farmers
+DB_TABLE =   
 
-🗂️ Project Structure
+create database farmers ;
+USE farmers;
 
-Krishi-Sathi/
-├── Frontend/
-│   ├── src/
-│   │   ├── pages/
-│   │   │   ├── Marketplace.jsx
-│   │   │   └── Subsidy.jsx (optional)
-│   │   ├── assets/
-│   │   ├── App.jsx
-│   │   └── index.css
-├── server/
-│   ├── routes/
-│   │   ├── marketplaceRoutes.js
-│   ├── controllers/
-│   ├── db.js
-│   └── index.js
-└── README.md
+CREATE TABLE crop_prices (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  crop_name VARCHAR(100) NOT NULL,
+  state VARCHAR(100) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-🔁 API Endpoints
-📍 Marketplace
+CREATE TABLE marketplace (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product VARCHAR(100) NOT NULL,
+  price DECIMAL(10, 2) NOT NULL,
+  state VARCHAR(100) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
 
-POST /api/marketplace/add-product
-→ Adds new product to database and localStorage
+Access: Frontend (http://localhost:3000) | Backend (http://localhost:5000) | python (http://localhost:5001)
 
-GET /api/marketplace/buyerlogin/priceprediction/chatbot/all-products
-→ Fetches all products from database
 
-Example POST payload:
-{
-  "product": "Wheat",
-  "price": "2500",
-  "state": "Punjab"
-}
 
-🧠 AI Features (Describe Logic)
-Chatbot: Built using basic state management with potential for Dialogflow/GemenAI  integration
+📊 Version History
+🏷️ Version 1.0.0 (Current)
+✅ Available: AI price prediction, Disease detection (50+ diseases), Crop recommendation, Marketplace, Chatbot
+🚀 Version 2.0.0  🆕 Coming: Multi-language support, Disease cure recommendations, Enhanced chatbot, Government subsidy portal, User authentication
+
+
+
+About AI models
+Crop prediction
+This model classifies soil images into various soil types using image-based features.
+It was trained on a curated dataset of labeled soil images to learn textural and color patterns using tensorflow and keras.
+The model is designed to assist farmers and researchers in identifying soil types visually.
+Crop disease
+This model detects plant diseases from leaf images by identifying visible symptoms.
+It helps farmers quickly diagnose issues like blight, rust, or mildew using a photo.
+The training was done on a large labeled dataset of diseased and healthy plant leaves using tensorflow and with Keras for Convolutional Neural Network.
+3.Price Prediction
 
 Price Prediction: Based on historical dataset or hardcoded values with future scope for ML model integration
-
-
-currently it is version 1.0.0 ( in which only one language is supported and 50 key features and is does not give the cure after detecting the desease )
-we are working one version 2 it will come soon in which (multi language feature is available and and also give the cure of the disease) 
-
-
-
-
-
-
-
-
 
 
